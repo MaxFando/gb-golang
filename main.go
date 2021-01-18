@@ -1,5 +1,8 @@
 package main
 
+import "fmt"
+
 func main() {
-    println("gb golang");
+	var userName string = "Developer"
+	fmt.Printf("Hello %s", userName)
 }
