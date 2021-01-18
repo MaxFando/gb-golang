@@ -3,45 +3,62 @@ package main
 import (
 	"fmt"
 	"github.com/MaxFando/gb-golang/lesson-2/circle"
+	"github.com/MaxFando/gb-golang/lesson-2/parse_inputs_int"
 
 	"github.com/MaxFando/gb-golang/lesson-2/rectangle"
 )
 
 func main() {
 	var width, length float64
+	var number int
 
-	fmt.Print("Enter width:")
+	fmt.Print("Введите ширину:")
 	_, errWidth := fmt.Scanln(&width)
 
 	if errWidth != nil {
-		fmt.Printf("You didn't enter the width")
+		fmt.Printf("Вы не указали ширину")
 	}
 
-	fmt.Print("Enter length:")
+	fmt.Print("Введите длину:")
 	_, errLength := fmt.Scanln(&length)
 
 	if errLength != nil {
-		fmt.Printf("You didn't enter the length")
+		fmt.Printf("Вы не указали длину")
 	}
 
 	rectangleArea, errArea := rectangle.Area(width, length)
 	if errArea != nil {
 		fmt.Printf(errArea.Error())
 	} else {
-		fmt.Println("Area of a rectangle is:", rectangleArea)
+		fmt.Println("Площадь прямоугольника равна:", rectangleArea)
 	}
 
-	fmt.Print("Enter circle area:")
+	fmt.Print("Укажите площадь круга:")
 	circleArea, errCircleArea := fmt.Scanln(&width)
 
 	if errCircleArea != nil {
-		fmt.Printf("You didn't enter the width")
+		fmt.Printf("Вы не указали площадь круга")
 		return
 	}
 
 	circleDiameter := circle.Diameter(circleArea)
 	circleLength := circle.Length(circleArea)
 
-	fmt.Println("Circle diameter is:", circleDiameter)
-	fmt.Println("Circle length is:", circleLength)
+	fmt.Println("Диаметр круга равен:", circleDiameter)
+	fmt.Println("Длина круга равна:", circleLength)
+
+	fmt.Print("Введите трехзначное число:")
+	_, errNumber := fmt.Scanln(&number)
+
+	if errNumber != nil {
+		fmt.Printf("Не хочешь не надо")
+		return
+	}
+
+	numMessage, errNumMessage := parse_inputs_int.Parse(number)
+	if errNumMessage != nil {
+		fmt.Printf(errNumMessage.Error())
+	} else {
+		fmt.Println(numMessage)
+	}
 }
