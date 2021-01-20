@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+//Parse Выводит кол-во сотен, десятков и единиц
 func Parse(number int) (string, error) {
 	parsedNumber := fmt.Sprintf("%v", number)
 

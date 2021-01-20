@@ -4,59 +4,55 @@ import (
 	"fmt"
 	"github.com/MaxFando/gb-golang/lesson-2/circle"
 	"github.com/MaxFando/gb-golang/lesson-2/parse_inputs_int"
+	"log"
+	"os"
 
 	"github.com/MaxFando/gb-golang/lesson-2/rectangle"
 )
+
+func init() {
+	log.SetOutput(os.Stdout)
+}
 
 func main() {
 	var width, length float64
 	var number int
 
-	fmt.Print("Введите ширину:")
-	_, errWidth := fmt.Scanln(&width)
-
-	if errWidth != nil {
-		fmt.Printf("Вы не указали ширину")
+	log.Println("Введите ширину:")
+	if _, errWidth := fmt.Scanln(&width); errWidth != nil {
+		log.Fatalln("Вы не указали ширину", errWidth)
 	}
 
-	fmt.Print("Введите длину:")
-	_, errLength := fmt.Scanln(&length)
-
-	if errLength != nil {
-		fmt.Printf("Вы не указали длину")
+	log.Println("Введите длину:")
+	if _, errLength := fmt.Scanln(&length); errLength != nil {
+		log.Fatalln("Вы не указали длину", errLength)
 	}
 
-	rectangleArea, errArea := rectangle.Area(width, length)
-	if errArea != nil {
-		fmt.Printf(errArea.Error())
+	if rectangleArea, errArea := rectangle.Area(width, length); errArea != nil {
+		log.Println(errArea)
 	} else {
-		fmt.Println("Площадь прямоугольника равна:", rectangleArea)
+		log.Println("Площадь прямоугольника равна:", rectangleArea)
 	}
 
-	fmt.Print("Укажите площадь круга:")
+	log.Println("Укажите площадь круга:")
 	circleArea, errCircleArea := fmt.Scanln(&width)
-
 	if errCircleArea != nil {
 		fmt.Printf("Вы не указали площадь круга")
 		return
 	}
 
-	circleDiameter := circle.Diameter(circleArea)
-	circleLength := circle.Length(circleArea)
+	circleDiameter, circleLength := circle.Diameter(circleArea), circle.Length(circleArea)
 
-	fmt.Println("Диаметр круга равен:", circleDiameter)
-	fmt.Println("Длина круга равна:", circleLength)
+	log.Println("Диаметр круга равен:", circleDiameter)
+	log.Println("Длина круга равна:", circleLength)
 
-	fmt.Print("Введите трехзначное число:")
-	_, errNumber := fmt.Scanln(&number)
-
-	if errNumber != nil {
+	log.Print("Введите трехзначное число:")
+	if _, errNumber := fmt.Scanln(&number); errNumber != nil {
 		fmt.Printf("Не хочешь не надо")
 		return
 	}
 
-	numMessage, errNumMessage := parse_inputs_int.Parse(number)
-	if errNumMessage != nil {
+	if numMessage, errNumMessage := parse_inputs_int.Parse(number); errNumMessage != nil {
 		fmt.Printf(errNumMessage.Error())
 	} else {
 		fmt.Println(numMessage)
