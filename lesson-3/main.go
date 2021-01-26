@@ -30,7 +30,7 @@ func main() {
 	fmt.Print("Введите арифметическую операцию (+, -, *, /, ^): ")
 	_, errOp := fmt.Scanln(&op)
 	if errOp != nil {
-		log.Fatalln("Произошла ошибка", errSec.Error())
+		log.Fatalln("Произошла ошибка", errOp.Error())
 	}
 
 	switch op {
