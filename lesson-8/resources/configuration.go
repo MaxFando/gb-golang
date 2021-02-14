@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	timeout = flag.Int("timeout", 30, "Timeout of connection")
+	timeout = flag.Int("timeout", 30, "Timeout of connection in seconds")
 )
 
 type Configuration struct {
@@ -34,7 +34,7 @@ func (conf *Configuration) NewConnection() {
 	}
 
 	format := "Debug: %v\nPort: %d\nTimeout: %d\n"
-	log.Printf(format, conf.Debug, conf.Port, timeout)
+	log.Printf(format, conf.Debug, conf.Port, *timeout)
 
 	err = validateConfiguration(*conf)
 	if err != nil {
