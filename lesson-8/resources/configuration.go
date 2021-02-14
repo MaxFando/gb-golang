@@ -2,8 +2,8 @@ package resources
 
 import (
 	"flag"
-	"fmt"
 	"github.com/kelseyhightower/envconfig"
+	"log"
 	"regexp"
 )
 
@@ -22,7 +22,7 @@ type Configuration struct {
 func (conf *Configuration) NewConnection() {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Println("Could not connect", r)
+			log.Println("Could not connect", r)
 		}
 	}()
 
@@ -34,10 +34,7 @@ func (conf *Configuration) NewConnection() {
 	}
 
 	format := "Debug: %v\nPort: %d\nTimeout: %d\n"
-	_, err = fmt.Printf(format, conf.Debug, conf.Port, timeout)
-	if err != nil {
-		panic(err.Error())
-	}
+	log.Printf(format, conf.Debug, conf.Port, timeout)
 
 	err = validateConfiguration(*conf)
 	if err != nil {
@@ -45,13 +42,13 @@ func (conf *Configuration) NewConnection() {
 		panic(err.Error())
 	}
 	conf.connected = true
-	fmt.Println("Connected")
+	log.Println("Connected")
 }
 
 func (conf *Configuration) CloseConnection() {
 	conf.connected = false
 
-	fmt.Println("Connection is closed")
+	log.Println("Connection is closed")
 }
 
 //validateConfiguration valid configuration
@@ -59,7 +56,7 @@ func validateConfiguration(conf Configuration) error {
 	err := validDBURL(conf.DBURL)
 
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 	}
 
 	return nil
