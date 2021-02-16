@@ -1,7 +1,10 @@
 package main
 
-import json "github.com/MaxFando/gb-golang/lesson-9/resources"
+import (
+	decoder "github.com/MaxFando/gb-golang/lesson-9/resources"
+)
 
 func main() {
-	json.Decode()
+	decoder.JsonDecode("app.json")
+	decoder.YmlDecode("app.yml")
 }

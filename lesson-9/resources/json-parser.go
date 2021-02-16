@@ -30,9 +30,9 @@ type App struct {
 	} `json:"glossary"`
 }
 
-func Decode() {
+func JsonDecode(filename string) {
 	// Создаем файловый дескриптор для файла, в котором хрнаится json-конфигурация
-	file, err := os.Open("./app.json")
+	file, err := os.Open(filename)
 	if err != nil {
 		log.Fatalf("Не могу открыть файл: %v", err)
 	}
