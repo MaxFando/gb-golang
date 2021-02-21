@@ -1,14 +1,11 @@
 package resources
 
 import (
+	"errors"
 	"flag"
 	"github.com/kelseyhightower/envconfig"
 	"log"
 	"regexp"
-)
-
-var (
-	timeout = flag.Int("timeout", 30, "Timeout of connection in seconds")
 )
 
 type Configuration struct {
@@ -20,6 +17,8 @@ type Configuration struct {
 
 //NewConnection set new connection
 func (conf *Configuration) NewConnection() {
+	timeout := flag.Int("timeout", 30, "Timeout of connection in seconds")
+
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println("Could not connect", r)
@@ -56,7 +55,7 @@ func validateConfiguration(conf Configuration) error {
 	err := validDBURL(conf.DBURL)
 
 	if err != nil {
-		log.Println(err.Error())
+		return err
 	}
 
 	return nil
@@ -66,7 +65,7 @@ func validDBURL(dbUrl string) error {
 	var valid = regexp.MustCompile(`postgres:\/\/(?:[^:]+):(?:[^:]+):(?:\d{4})`)
 
 	if ok := valid.MatchString(dbUrl); ok != true {
-		panic("DB_URL is not set right")
+		return errors.New("DB_URL is not set right")
 	}
 
 	return nil
