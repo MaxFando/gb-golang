@@ -7,47 +7,45 @@ import (
 	"os"
 )
 
-func init() {
-	log.SetOutput(os.Stdout)
-}
-
 func main() {
-	var a, b, res float64
-	var op string
+	log.SetOutput(os.Stdout)
 
-	fmt.Print("Введите первое число: ")
-	_, err := fmt.Scanln(&a)
+	fmt.Print("Enter first number: ")
+	var firstNumber float64
+	_, err := fmt.Scanln(&firstNumber)
 	if err != nil {
-		log.Fatalln("Произошла ошибка", err.Error())
+		panic(fmt.Sprint("Error occurred", err.Error()))
 	}
 
-	fmt.Print("Введите второе число: ")
-	_, errSec := fmt.Scanln(&b)
+	fmt.Print("Enter second number: ")
+	var secondNumber float64
+	_, errSec := fmt.Scanln(&secondNumber)
 	if errSec != nil {
-		log.Fatalln("Произошла ошибка", errSec.Error())
+		panic(fmt.Sprint("Error occurred", errSec.Error()))
 	}
 
-	fmt.Print("Введите арифметическую операцию (+, -, *, /, ^): ")
-	_, errOp := fmt.Scanln(&op)
+	fmt.Print("Enter operation (+, -, *, /, ^): ")
+	var operation string
+	_, errOp := fmt.Scanln(&operation)
 	if errOp != nil {
-		log.Fatalln("Произошла ошибка", errOp.Error())
+		panic(fmt.Sprint("Error occurred", errOp.Error()))
 	}
 
-	switch op {
+	var result float64
+	switch operation {
 	case "+":
-		res = a + b
+		result = firstNumber + secondNumber
 	case "-":
-		res = a - b
+		result = firstNumber - secondNumber
 	case "*":
-		res = a * b
+		result = firstNumber * secondNumber
 	case "/":
-		res = a / b
+		result = firstNumber / secondNumber
 	case "^":
-		res = math.Pow(a, b)
+		result = math.Pow(firstNumber, secondNumber)
 	default:
-		fmt.Println("Операция выбрана неверно")
-		os.Exit(1)
+		panic(fmt.Sprint("Operation is not defined"))
 	}
 
-	fmt.Printf("Результат выполнения операции: %f\n", res)
+	fmt.Printf("Operation result: %f\n", result)
 }
