@@ -1,6 +1,15 @@
 package parse_inputs_int
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
+
+func ExampleParse() {
+	message, _ := Parse(234)
+	fmt.Println(message)
+	// Output: В числе 234 - 2 сотен, 3 десятков, 4 единиц
+}
 
 func TestParse(t *testing.T) {
 	want := "В числе 234 - 2 сотен, 3 десятков, 4 единиц"

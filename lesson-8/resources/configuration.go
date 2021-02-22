@@ -35,7 +35,7 @@ func (conf *Configuration) NewConnection() {
 	format := "Debug: %v\nPort: %d\nTimeout: %d\n"
 	log.Printf(format, conf.Debug, conf.Port, *timeout)
 
-	err = validateConfiguration(*conf)
+	err = ValidateConfiguration(*conf)
 	if err != nil {
 		conf.CloseConnection()
 		panic(err.Error())
@@ -50,8 +50,8 @@ func (conf *Configuration) CloseConnection() {
 	log.Println("Connection is closed")
 }
 
-//validateConfiguration valid configuration
-func validateConfiguration(conf Configuration) error {
+//ValidateConfiguration valid configuration
+func ValidateConfiguration(conf Configuration) error {
 	err := validDBURL(conf.DBURL)
 
 	if err != nil {
