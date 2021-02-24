@@ -1,10 +1,22 @@
 package rectangle
 
-import "testing"
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
 
 func TestArea(t *testing.T) {
-	want := 20.0
-	if got, _ := Area(10.0, 2.0); got != want {
-		t.Errorf("Area() = %f, want %f", got, want)
+	tests := []struct {
+		width  float64
+		height float64
+	}{
+		{10, 10},
+		{2, 5},
+		{3, 12},
+	}
+
+	for _, tc := range tests {
+		_, err := Area(tc.width, tc.height)
+		assert.Nil(t, err)
 	}
 }

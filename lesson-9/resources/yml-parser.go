@@ -12,7 +12,7 @@ type Employee struct {
 	Skill string `yaml:"skill"`
 }
 
-func YmlDecode(filename string) {
+func YmlDecode(filename string) string {
 	file, err := os.Open(filename)
 	if err != nil {
 		panic(fmt.Sprintln("Cannot open the file: ", filename, err.Error()))
@@ -31,5 +31,5 @@ func YmlDecode(filename string) {
 		panic(fmt.Sprintln("Cannot decode file:", filename, err.Error()))
 	}
 
-	fmt.Println(employee.Name)
+	return employee.Name
 }
